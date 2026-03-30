@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Crop Health Monitoring Dashboard</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<style>
+
+/* Background */
+body {
+  margin:0;
+  font-family: 'Segoe UI', sans-serif;
+  background: radial-gradient(circle at top, #001a00, #000000);
+  color: #ccffcc;
+}
+
+/* Header */
+header {
+  text-align:center;
+  padding:20px;
+  font-size:32px;
+  font-weight:bold;
+  color:#00ff88;
+  text-shadow: 0 0 15px #00ff88, 0 0 30px #006600;
+}
+
+/* Layout */
+.container {
+  display:flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  padding: 20px;
+}
+
+/* Card */
+.card {
+  background: rgba(0, 20, 0, 0.7);
+  border-radius: 20px;
+  padding: 20px;
+  margin: 15px;
+  width: 320px;
+  text-align:center;
+
+  backdrop-filter: blur(10px);
+
+  /* Glow */
+  box-shadow: 0 0 15px #00ff88, 0 0 40px #003300;
+
+  transition: 0.3s;
+}
+
+/* Hover Effect */
+.card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 25px #00ff88, 0 0 60px #00ff88;
+}
+
+/* Text */
+h3 {
+  color: #00ff88;
+}
+
+p {
+  font-size: 18px;
+}
+
+/* Chart */
+canvas {
+  margin-top: 10px;
+}
+
+/* Drone animation */
+img.drone {
+  width: 100px;
+  margin-top: 10px;
+  filter: drop-shadow(0 0 10px #00ff88);
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-15px); }
+}
+
+</style>
+</head>
+
+<body>
+
+<header>🌱 Smart IoT Crop Health Dashboard 🚁</header>
+
+<div class="container">
+
+  <div class="card">
+    <h3>📊 Crop Health Status</h3>
+    <canvas id="cropChart"></canvas>
+    <img src="https://img.icons8.com/ios-filled/100/00ff88/drone.png" class="drone" />
+  </div>
+
+  <div class="card">
+    <h3>🌡 Field Data</h3>
+    <p>Temperature: <b style="color:#00ff88;">28°C</b> 🌡️</p>
+    <p>Humidity: <b style="color:#00ff88;">65%</b> 💧</p>
+    <p>Soil Moisture: <b style="color:#00ff88;">45%</b> 🌱</p>
+  </div>
+
+</div>
+
+<script>
+const ctx = document.getElementById('cropChart').getContext('2d');
+
+const cropChart = new Chart(ctx, {
+    type: 'doughnut',
+    data: {
+        labels: ['Healthy', 'Mild Stress', 'Diseased'],
+        datasets: [{
+            data: [60, 25, 15],
+            backgroundColor: ['#00ff88', '#66ff66', '#004d26'],
+            borderColor: ['#00cc66', '#33cc33', '#00331a'],
+            borderWidth: 2
+        }]
+    },
+    options: {
+        responsive: true,
+        plugins: {
+            legend: {
+                position: 'bottom',
+                labels: {
+                    color:'#ccffcc',
+                    font:{size:14}
+                }
+            },
+            tooltip: {
+                backgroundColor:'#003300',
+                titleColor:'#00ff88',
+                bodyColor:'#ccffcc'
+            }
+        }
+    }
+});
+</script>
+
+</body>
+</html>
