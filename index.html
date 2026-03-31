@@ -1,145 +1,158 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Crop Health Monitoring Dashboard</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-
+<title>Crop Health Dashboard</title>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
 <style>
-
-/* Background */
-body {
-  margin:0;
-  font-family: 'Segoe UI', sans-serif;
-  background: radial-gradient(circle at top, #001a00, #000000);
-  color: #ccffcc;
+body{
+    font-family:'Segoe UI', sans-serif;
+    background: linear-gradient(120deg,#d0f0c0,#a8e6a3);
+    margin:0;
 }
-
-/* Header */
-header {
-  text-align:center;
-  padding:20px;
-  font-size:32px;
-  font-weight:bold;
-  color:#00ff88;
-  text-shadow: 0 0 15px #00ff88, 0 0 30px #006600;
+header{
+    background: linear-gradient(90deg,#1abc9c,#16a085);
+    color:white;
+    padding:20px;
+    text-align:center;
+    font-size:28px;
+    font-weight:bold;
+    letter-spacing:1px;
 }
-
-/* Layout */
-.container {
-  display:flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  padding: 20px;
+.menu{
+    background:#138d75;
+    padding:10px;
+    text-align:center;
 }
-
-/* Card */
-.card {
-  background: rgba(0, 20, 0, 0.7);
-  border-radius: 20px;
-  padding: 20px;
-  margin: 15px;
-  width: 320px;
-  text-align:center;
-
-  backdrop-filter: blur(10px);
-
-  /* Glow */
-  box-shadow: 0 0 15px #00ff88, 0 0 40px #003300;
-
-  transition: 0.3s;
+.menu a{
+    color:white;
+    margin:15px;
+    text-decoration:none;
+    font-weight:bold;
+    transition:0.3s;
 }
-
-/* Hover Effect */
-.card:hover {
-  transform: scale(1.05);
-  box-shadow: 0 0 25px #00ff88, 0 0 60px #00ff88;
+.menu a:hover{
+    color:#d4efdf;
 }
-
-/* Text */
-h3 {
-  color: #00ff88;
+.container{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+    margin-top:25px;
 }
-
-p {
-  font-size: 18px;
+.card{
+    background:white;
+    width:220px;
+    margin:15px;
+    padding:20px;
+    border-radius:15px;
+    box-shadow:0 8px 18px rgba(0,0,0,0.2);
+    text-align:center;
+    transition:0.3s;
 }
-
-/* Chart */
-canvas {
-  margin-top: 10px;
+.card:hover{
+    transform: translateY(-8px);
+    box-shadow:0 12px 25px rgba(0,0,0,0.25);
 }
-
-/* Drone animation */
-img.drone {
-  width: 100px;
-  margin-top: 10px;
-  filter: drop-shadow(0 0 10px #00ff88);
-  animation: float 3s ease-in-out infinite;
+.value{
+    font-size:28px;
+    color:#1abc9c;
+    margin-top:10px;
+    font-weight:bold;
 }
-
-@keyframes float {
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-15px); }
+.section{
+    background:white;
+    margin:25px auto;
+    padding:25px;
+    border-radius:15px;
+    box-shadow:0 8px 18px rgba(0,0,0,0.2);
+    text-align:center;
+    max-width:900px;
 }
-
+.alert{
+    background:#d4efdf;
+    color:#145a32;
+    padding:18px;
+    margin:20px auto;
+    text-align:center;
+    border-radius:12px;
+    font-weight:bold;
+    font-size:20px;
+    max-width:600px;
+    animation: flash 1.5s infinite;
+}
+@keyframes flash{
+    0%{opacity:1;}
+    50%{opacity:0.6;}
+    100%{opacity:1;}
+}
+#charts{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:space-around;
+    margin-top:25px;
+}
+.chart-card{
+    background:white;
+    padding:20px;
+    margin:15px;
+    border-radius:15px;
+    box-shadow:0 8px 18px rgba(0,0,0,0.2);
+    width:400px;
+}
+img.drone{
+    width:80%;
+    border-radius:15px;
+    margin-top:15px;
+}
 </style>
 </head>
-
 <body>
 
-<header>🌱 Smart IoT Crop Health Dashboard 🚁</header>
+<header>
+IoT Based Crop Health Monitoring
+</header>
+
+<div class="menu">
+<a href="#">Home</a>
+<a href="#">Drone Data</a>
+<a href="#">Crop Health</a>
+<a href="#">Alerts</a>
+</div>
 
 <div class="container">
+<div class="card"><h3>Field Status</h3><div class="value">Healthy</div></div>
+<div class="card"><h3>Temperature</h3><div class="value">30°C</div></div>
+<div class="card"><h3>Humidity</h3><div class="value">68%</div></div>
+<div class="card"><h3>Crop Health</h3><div class="value">Good</div></div>
+<div class="card"><h3>Sugar Level</h3><div class="value">15 Brix</div></div>
+<div class="card"><h3>Soil Moisture</h3><div class="value">45%</div></div>
+</div>
 
-  <div class="card">
-    <h3>📊 Crop Health Status</h3>
-    <canvas id="cropChart"></canvas>
-    <img src="https://img.icons8.com/ios-filled/100/00ff88/drone.png" class="drone" />
-  </div>
+<div class="section">
+<h2>Drone Image Analysis</h2>
+<img src="https://via.placeholder.com/700x350.png?text=Drone+Image" class="drone">
+<p>Healthy Area: <b>80%</b></p>
+<p>Affected Area: <b>20%</b></p>
+</div>
 
-  <div class="card">
-    <h3>🌡 Field Data</h3>
-    <p>Temperature: <b style="color:#00ff88;">28°C</b> 🌡️</p>
-    <p>Humidity: <b style="color:#00ff88;">65%</b> 💧</p>
-    <p>Soil Moisture: <b style="color:#00ff88;">45%</b> 🌱</p>
-  </div>
+<div id="charts">
+<div class="chart-card"><canvas id="tempChart"></canvas></div>
+<div class="chart-card"><canvas id="humidityChart"></canvas></div>
+<div class="chart-card"><canvas id="sugarChart"></canvas></div>
+</div>
 
+<div class="alert">
+⚠ Disease detected in Section B – Immediate inspection needed
 </div>
 
 <script>
-const ctx = document.getElementById('cropChart').getContext('2d');
-
-const cropChart = new Chart(ctx, {
-    type: 'doughnut',
-    data: {
-        labels: ['Healthy', 'Mild Stress', 'Diseased'],
-        datasets: [{
-            data: [60, 25, 15],
-            backgroundColor: ['#00ff88', '#66ff66', '#004d26'],
-            borderColor: ['#00cc66', '#33cc33', '#00331a'],
-            borderWidth: 2
-        }]
-    },
-    options: {
-        responsive: true,
-        plugins: {
-            legend: {
-                position: 'bottom',
-                labels: {
-                    color:'#ccffcc',
-                    font:{size:14}
-                }
-            },
-            tooltip: {
-                backgroundColor:'#003300',
-                titleColor:'#00ff88',
-                bodyColor:'#ccffcc'
-            }
-        }
-    }
-});
+// Charts
+const tempCtx = document.getElementById('tempChart').getContext('2d');
+new Chart(tempCtx,{type:'line',data:{labels:['9AM','12PM','3PM','6PM','9PM'],datasets:[{label:'Temperature °C',data:[28,30,31,29,27],borderColor:'#1abc9c',backgroundColor:'rgba(26,188,156,0.2)',tension:0.3}]}});
+const humCtx = document.getElementById('humidityChart').getContext('2d');
+new Chart(humCtx,{type:'line',data:{labels:['9AM','12PM','3PM','6PM','9PM'],datasets:[{label:'Humidity %',data:[65,68,70,66,64],borderColor:'#16a085',backgroundColor:'rgba(22,160,133,0.2)',tension:0.3}]}});
+const sugarCtx = document.getElementById('sugarChart').getContext('2d');
+new Chart(sugarCtx,{type:'line',data:{labels:['9AM','12PM','3PM','6PM','9PM'],datasets:[{label:'Sugar Level (Brix)',data:[14,15,15,16,15],borderColor:'#27ae60',backgroundColor:'rgba(39,174,96,0.2)',tension:0.3}]}});
 </script>
 
 </body>
